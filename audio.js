@@ -34,7 +34,7 @@ export class AudioManager {
             this.playChoiceTheme();
         }
 
-        // Master Fade In
+
         this.masterGain.gain.cancelScheduledValues(this.ctx.currentTime);
         this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime);
         this.masterGain.gain.linearRampToValueAtTime(0.4, this.ctx.currentTime + 3.0);
@@ -52,12 +52,12 @@ export class AudioManager {
         gain.gain.value = vol;
         panner.pan.value = pan;
 
-        // Routing
+
         osc.connect(gain);
         gain.connect(panner);
         panner.connect(this.masterGain);
 
-        // LFO (optional)
+
         let lfoNodes = [];
         if (lfoFreq > 0) {
             const lfo = this.ctx.createOscillator();
@@ -65,14 +65,14 @@ export class AudioManager {
             lfo.frequency.value = lfoFreq;
             lfoGain.gain.value = lfoDepth;
             lfo.connect(lfoGain);
-            lfoGain.connect(gain.gain); // AM synthesis
+            lfoGain.connect(gain.gain);
             lfo.start();
             lfoNodes.push(lfo, lfoGain);
         }
 
         osc.start();
 
-        // Track
+
         this.activeNodes.push({
             stop: () => {
                 osc.stop();
@@ -82,34 +82,29 @@ export class AudioManager {
     }
 
     playMainTheme() {
-        // "Mysterious & Tranquil" - Smoother, less abrasive
-        // Deep Warm Bass (Triangle/Sine instead of Saw)
-        this.createOsc(32.70, 'triangle', 0.15, 0, 0.1, 0.02); // C1
-        this.createOsc(65.41, 'sine', 0.1, 0, 0.05, 0.02); // C2
+        this.createOsc(32.70, 'triangle', 0.15, 0, 0.1, 0.02);
+        this.createOsc(65.41, 'sine', 0.1, 0, 0.05, 0.02);
 
-        // Soft Ethereal Pads (Sine waves with slow movement)
-        this.createOsc(130.81, 'sine', 0.05, 0.3, 0.2, 0.03); // C3
-        this.createOsc(155.56, 'sine', 0.04, -0.3, 0.15, 0.03); // Eb3 (Minor 3rd)
-        this.createOsc(196.00, 'sine', 0.04, 0.2, 0.1, 0.03); // G3 (5th)
 
-        // Removed Noise for clarity
+        this.createOsc(130.81, 'sine', 0.05, 0.3, 0.2, 0.03);
+        this.createOsc(155.56, 'sine', 0.04, -0.3, 0.15, 0.03);
+        this.createOsc(196.00, 'sine', 0.04, 0.2, 0.1, 0.03);
+
+
     }
 
     playChoiceTheme() {
-        // "Decision / Tension" - Simpler, more focused, slightly higher pitch center
-        // Root A Minor
-        this.createOsc(55.00, 'sine', 0.2, 0); // A1
-        this.createOsc(110.00, 'triangle', 0.05, -0.2); // A2
+        this.createOsc(55.00, 'sine', 0.2, 0);
+        this.createOsc(110.00, 'triangle', 0.05, -0.2);
 
-        // Tense Interval (Minor 2nd and Tritone hints)
-        this.createOsc(116.54, 'sine', 0.02, 0.3, 8.0, 0.01); // Bb2 (Tension)
-        this.createOsc(164.81, 'sine', 0.02, -0.3, 5.0, 0.01); // E3
 
-        // An intermittent "ping" loop could be complex, sticking to drone for safety/conciseness
+        this.createOsc(116.54, 'sine', 0.02, 0.3, 8.0, 0.01);
+        this.createOsc(164.81, 'sine', 0.02, -0.3, 5.0, 0.01);
+
+
     }
 
     createNoise(vol) {
-        // Simple White Noise generator
         const bufferSize = 2 * this.ctx.sampleRate;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data = buffer.getChannelData(0);
@@ -139,7 +134,7 @@ export class AudioManager {
     stop() {
         if (!this.ctx || !this.isPlaying) return;
 
-        // Fade Out
+
         this.masterGain.gain.cancelScheduledValues(this.ctx.currentTime);
         this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, this.ctx.currentTime);
         this.masterGain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 1.0);
@@ -147,7 +142,6 @@ export class AudioManager {
         setTimeout(() => {
             this.activeNodes.forEach(item => {
                 if (item.stop) item.stop();
-                // Clean up nodes aggressively to prevent memory leaks if possible
                 if (item.nodes) item.nodes.forEach(n => n.disconnect());
             });
             this.activeNodes = [];
