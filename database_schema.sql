@@ -1,12 +1,11 @@
--- EMP DATABASE SCHEMA V1.0 --
--- Dialect: PostgreSQL / Generic SQL --
+
 
 CREATE TABLE users (
     id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL, -- Recommended to hash
+    password_hash VARCHAR(255) NOT NULL,
     joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    role VARCHAR(20) DEFAULT 'user' -- 'admin' or 'user'
+    role VARCHAR(20) DEFAULT 'user'
 );
 
 CREATE TABLE briefings (
@@ -42,6 +41,6 @@ CREATE TABLE chats (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- INDEXES --
+
 CREATE INDEX idx_briefings_status ON briefings(status);
 CREATE INDEX idx_chats_userid ON chats(user_id);
