@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMP // DECISÃO</title>
+    <script src="security.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .choice-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+            border-right: 1px solid #333;
+        }
+
+        .choice-panel:last-child {
+            border-right: none;
+        }
+
+        .choice-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 255, 0);
+            z-index: 1;
+            transition: 0.5s;
+        }
+
+        .choice-panel:hover::before {
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .choice-panel:hover {
+            flex: 1.2;
+        }
+
+        .choice-content {
+            z-index: 10;
+            text-align: center;
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-family: var(--font-mono);
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-fake {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 1px solid #fff;
+            color: #fff;
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .choice-panel:hover .btn-fake {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .or-divider {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            background: #000;
+            padding: 1rem;
+            border: 1px solid #333;
+            border-radius: 50%;
+            font-family: var(--font-mono);
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="vortex-canvas" style="opacity: 0.4"></canvas>
+    <div class="noise-overlay"></div>
+
+    <div class="or-divider">OU</div>
+
+    <div class="split-container">
+        <!-- Dashboard Option -->
+        <div class="choice-panel" onclick="choosePath('dashboard.html')">
+            <div class="choice-content">
+                <h2>PROTOCOLO: <span class="text-highlight">ARQUITETO</span></h2>
+                <p>TENHO A VISÃO. QUERO INICIAR O <span class="text-highlight">ORÇAMENTO DO PROJETO</span> AGORA.</p>
+                <div class="btn-fake">PREENCHER BRIEFING</div>
+            </div>
+        </div>
+
+        <!-- Meeting Option -->
+        <div class="choice-panel" onclick="choosePath('meeting.html')">
+            <div class="choice-content">
+                <h2>PROTOCOLO: <span class="text-highlight">SINCRONIA</span></h2>
+                <p>A MISSÃO É COMPLEXA. QUERO <span class="text-highlight">FALAR COM UM CONSULTOR</span> TÉCNICO.</p>
+                <div class="btn-fake">AGENDAR REUNIÃO</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { Vortex } from './app.js';
+        import { AudioManager } from './audio.js';
+
+        new Vortex();
+        const audio = new AudioManager();
+        let audioStarted = false;
+
+        const startAudio = () => {
+            if (!audioStarted) {
+                audio.start('choice');
+                audioStarted = true;
+                window.removeEventListener('click', startAudio);
+            }
+        };
+        window.addEventListener('click', startAudio);
+        // Also try start on hover for faster feedback if browser allows
+        document.body.addEventListener('mousemove', startAudio, { once: true });
+
+        window.choosePath = (url) => {
+            document.body.style.transition = "opacity 0.5s";
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                window.location.href = url;
+            }, 500);
+        };
+    </script>
+</body>
+
+</html>

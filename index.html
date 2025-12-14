@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMP // ARQUITETURA DIGITAL</title>
+    <!-- SECURITY PROTOCOL -->
+    <script src="security.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="vortex-canvas"></canvas>
+    <div class="noise-overlay"></div>
+    <div class="vignette"></div>
+
+    <!-- The 3D Tunnel Wrapper -->
+    <div id="tunnel-container">
+
+        <!-- INTRO -->
+        <section class="tunnel-section" style="--z: 0px;">
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="EMP // SIGNAL">EMP // SIGNAL</h1>
+            </div>
+            <p class="subtitle">DESENVOLVIMENTO WEB DE ALTA PERFORMANCE. <span class="text-highlight">NÓS CRIAMOS O
+                    INIMAGINÁVEL</span>.</p>
+        </section>
+
+        <!-- MANIFESTO -->
+        <section class="tunnel-section" style="--z: -1500px;">
+            <div class="manifesto-block">
+                <h2>O DIAGNÓSTICO:</h2>
+                <p>O PADRÃO É <span class="text-highlight">RUÍDO</span>. SOMOS UMA EQUIPE DE ESPECIALISTAS EM <span
+                        class="text-highlight">EXPERIÊNCIAS DIGITAIS</span>.</p>
+            </div>
+        </section>
+
+        <!-- THE PORTAL -->
+        <section class="tunnel-section" style="--z: -3000px;">
+            <div class="portal-ring">
+                <div class="ring-inner"></div>
+            </div>
+            <h2 class="portal-text">A INTERVENÇÃO</h2>
+        </section>
+
+        <!-- WORKS 3D -->
+        <section class="tunnel-section works-group" style="--z: -4500px;">
+            <div class="work-card w1">
+                <h3>IMERSÃO</h3>
+                <p>Sites imersivos que transformam visitantes em <span class="text-highlight">CLIENTES</span>.</p>
+            </div>
+            <div class="work-card w2">
+                <h3>DOMÍNIO</h3>
+                <p>Posicionamento digital e marca que deve ser <span class="text-highlight">SENTIDA</span>.</p>
+            </div>
+            <div class="work-card w3">
+                <h3>VELOCIDADE</h3>
+                <p>Código puro e otimizado. Performance <span class="text-highlight">ABSOLUTA</span>.</p>
+            </div>
+        </section>
+
+        <!-- DEEP CONTENT 1 -->
+        <section class="tunnel-section" style="--z: -6000px;">
+            <h2 class="huge-text-glitch">TRANSCENDA</h2>
+        </section>
+
+        <section class="tunnel-section" style="--z: -7500px;">
+            <div class="manifesto-block invert-trigger">
+                <h2>SUA ARMA</h2>
+                <p>VOCÊ NÃO PRECISA DE MAIS UM <span class="text-highlight">TEMPLATE</span>. <br> VOCÊ PRECISA DE <span
+                        class="text-highlight">PODER DE FOGO</span> DIGITAL.</p>
+            </div>
+        </section>
+
+        <section class="tunnel-section" style="--z: -9000px;">
+            <div class="floating-shards">
+                <div class="shard s1"></div>
+                <div class="shard s2"></div>
+                <div class="shard s3"></div>
+            </div>
+            <h2 class="portal-text">SINGULARIDADE</h2>
+        </section>
+
+        <!-- DEEP CONTENT 2 -->
+        <section class="tunnel-section" style="--z: -11000px;">
+            <div class="manifesto-block">
+                <h2>PROTOCOLO FINAL</h2>
+                <p>ESTAMOS SELECIONANDO OPERADORES PARA PROJETOS DE <span class="text-highlight">ALTO RISCO</span>.</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <section class="tunnel-section" style="--z: -13000px;">
+            <div class="final-cta">
+                <h2 class="glitch" data-text="INICIAR UPLOAD">INICIAR UPLOAD</h2>
+                <p style="margin: 1rem 0; font-family: var(--font-mono); color: #0ff;">ESTÁ PRONTO PARA A VERDADE?</p>
+                <button class="danger-btn" id="collapseBtn">SOLICITAR ACESSO AGORA</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="hud-overlay">
+        <div class="scan-line"></div>
+        <div class="coords">PROFUNDIDADE: <span id="z-val">0000</span> / 13000</div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+
+    <!-- CHAT INJECTION -->
+    <div id="chat-container"></div>
+    <script>
+        fetch('chat.html')
+            .then(response => response.text())
+            .then(html => {
+                const container = document.getElementById('chat-container');
+                container.innerHTML = html;
+
+                // Manually execute scripts in injected HTML
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(script => {
+                    const newScript = document.createElement('script');
+                    newScript.type = script.type;
+                    if (script.src) newScript.src = script.src;
+                    else newScript.textContent = script.textContent;
+                    document.body.appendChild(newScript);
+                });
+            });
+    </script>
+</body>
+
+</html>
