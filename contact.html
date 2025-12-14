@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMP // DECISÃO</title>
-    <script src="security.js"></script>
+    <script src="engine.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -143,12 +143,10 @@
         </div>
     </div>
 
-    <script type="module">
-        import { Vortex } from './app.js';
-        import { AudioManager } from './audio.js';
-
-        new Vortex();
-        const audio = new AudioManager();
+    <script>
+        // Engine already loaded globally
+        new window.Vortex();
+        const audio = new window.AudioManager();
         let audioStarted = false;
 
         const startAudio = () => {
