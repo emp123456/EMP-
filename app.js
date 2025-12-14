@@ -1,26 +1,21 @@
-/*
- * VOID LABS ENGINE V3 - AUTOMATION
- * - Z-Axis Scroll with AUTO TRIGGERS
- * - Vortex Particle System (Exported)
- * - Global FX Handlers
- */
 
-// --- 3D Z-Scroll Engine ---
+
+
 export class TunnelScroll {
     constructor() {
         this.container = document.getElementById('tunnel-container');
-        // Protection if running on a page without tunnel
+
         if (!this.container) return;
 
         this.sections = document.querySelectorAll('.tunnel-section');
         this.zValDisplay = document.getElementById('z-val');
 
-        this.zPos = 0; // Current Camera Z
+        this.zPos = 0;
         this.targetZ = 0;
 
-        this.maxZ = 13000; // Updated depth
+        this.maxZ = 13000;
 
-        // Automated Events State
+
         this.lastTriggerZ = 0;
 
         this.init();
@@ -28,7 +23,7 @@ export class TunnelScroll {
 
     init() {
         window.addEventListener('wheel', (e) => {
-            this.targetZ += e.deltaY * 4.0; // Faster scroll for deeper content
+            this.targetZ += e.deltaY * 4.0;
             if (this.targetZ < 0) this.targetZ = 0;
             if (this.targetZ > this.maxZ) this.targetZ = this.maxZ;
         }, { passive: true });
@@ -40,21 +35,20 @@ export class TunnelScroll {
         const diff = this.targetZ - this.zPos;
         this.zPos += diff * 0.05;
 
-        // --- AUTOMATED EVENTS LOGIC ---
-        // Check every 1000 pixels
+
         if (Math.abs(this.zPos - this.lastTriggerZ) > 1000) {
             this.triggerRandomEvent();
             this.lastTriggerZ = this.zPos;
         }
 
-        // Deep Invert Logic: Invert world between 7000 and 9000
+
         if (this.zPos > 7000 && this.zPos < 9000) {
             document.body.classList.add('invert-mode');
         } else {
             document.body.classList.remove('invert-mode');
         }
 
-        // --- RENDER ---
+
         if (this.zValDisplay) {
             this.zValDisplay.innerText = Math.round(this.zPos).toString().padStart(5, '0');
         }
@@ -74,7 +68,6 @@ export class TunnelScroll {
             sec.style.opacity = opacity;
 
             if (opacity > 0.1) {
-                // Deeper means more jitter
                 const jitterIntensity = this.zPos > 8000 ? 5 : 1;
 
                 if (Math.random() > 0.90) {
@@ -91,7 +84,7 @@ export class TunnelScroll {
     }
 
     triggerRandomEvent() {
-        // 30% chance for glitch, 30% for nova
+
         const rand = Math.random();
         if (rand < 0.3) {
             window.effectGlitch();
@@ -105,7 +98,7 @@ function mapRange(value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-// --- Vortex Canvas ---
+
 export class Vortex {
     constructor() {
         this.canvas = document.getElementById('vortex-canvas');
@@ -141,7 +134,7 @@ export class Vortex {
 
     triggerNova() {
         this.isNova = true;
-        setTimeout(() => { this.isNova = false; }, 800); // Longer nova
+        setTimeout(() => { this.isNova = false; }, 800);
     }
 
     animate() {
@@ -183,7 +176,7 @@ class Particle {
         const angle = Math.atan2(dy, dx);
 
         if (isNova) {
-            this.vx -= Math.cos(angle) * 30; // Stronger blast
+            this.vx -= Math.cos(angle) * 30;
             this.vy -= Math.sin(angle) * 30;
         } else {
             this.vx += Math.cos(angle) * 0.2;
@@ -215,7 +208,7 @@ class Particle {
     }
 }
 
-// --- Global Effects & Export ---
+
 import { AudioManager } from './audio.js';
 
 let vortexInstance;
@@ -227,18 +220,18 @@ document.addEventListener('DOMContentLoaded', () => {
     vortexInstance = new Vortex();
     audioInstance = new AudioManager();
 
-    // Bind Collapse Button safely
+
     const collapseBtn = document.getElementById('collapseBtn');
     if (collapseBtn) {
         collapseBtn.addEventListener('click', triggerCollapse);
     }
 
-    // Audio Start Trigger (Browser requires interaction)
+
     const startAudio = () => {
         if (!audioStarted && audioInstance) {
             audioInstance.start('main');
             audioStarted = true;
-            // Remove listeners once started
+            audioStarted = true;
             window.removeEventListener('click', startAudio);
             window.removeEventListener('wheel', startAudio);
         }
@@ -262,16 +255,16 @@ window.effectNova = () => {
 };
 
 function triggerCollapse() {
-    // Stop Audio
+
     if (audioInstance) audioInstance.stop();
 
-    // Chaos Effect
+
     document.body.style.transformOrigin = "center center";
     document.body.style.transform = "scale(0) rotate(720deg)";
-    document.body.style.filter = "invert(1) contrast(500%)"; // Add extra flash
+    document.body.style.filter = "invert(1) contrast(500%)";
     document.body.style.transition = "all 2.5s cubic-bezier(0.8, 0, 0.2, 1)";
 
-    // REDIRECT AFTER ANIMATION
+
     setTimeout(() => {
         window.location.href = 'contact.html';
     }, 2500);
