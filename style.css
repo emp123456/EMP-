@@ -21,10 +21,10 @@ body {
     height: 100vh;
     perspective: 1000px;
     transition: filter 0.1s;
-    /* Instant for glitch, smooth for invert */
+
 }
 
-/* Effect Classes */
+
 body.invert-mode {
     filter: invert(1);
 }
@@ -33,7 +33,7 @@ body.shake-mode {
     animation: screen-shake 0.2s cubic-bezier(.36, .07, .19, .97) both infinite;
 }
 
-/* --- Overlays --- */
+
 canvas {
     position: fixed;
     top: 0;
@@ -77,7 +77,7 @@ canvas {
     color: var(--glitch-color-1);
 }
 
-/* --- HUD Panel --- */
+
 .hud-panel {
     position: fixed;
     top: 2rem;
@@ -127,7 +127,7 @@ canvas {
     transform: scale(0.98);
 }
 
-/* --- 3D Tunnel Engine --- */
+
 #tunnel-container {
     position: absolute;
     top: 50%;
@@ -160,7 +160,7 @@ canvas {
     pointer-events: all;
 }
 
-/* --- Content Styles --- */
+
 h1.glitch {
     font-size: 8vw;
     font-weight: 700;
@@ -241,7 +241,7 @@ h1.glitch::after {
     animation: spin 3s linear infinite reverse;
 }
 
-/* Works in 3D space */
+
 .work-card {
     background: rgba(20, 20, 20, 0.9);
     border: 1px solid var(--glitch-color-1);
@@ -262,14 +262,14 @@ h1.glitch::after {
     transform: translate(0px, 300px);
 }
 
-/* Text Emphasis */
+
 .text-highlight {
     color: #f00;
     font-weight: 700;
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
-/* Buttons */
+
 .danger-btn {
     background: transparent;
     border: 2px solid #f00;
@@ -281,7 +281,7 @@ h1.glitch::after {
     cursor: pointer;
     transition: 0.3s;
     pointer-events: auto;
-    /* CRITICAL FIX: Override parent pointer-events: none */
+    pointer-events: auto;
 }
 
 .danger-btn:hover {
@@ -290,13 +290,13 @@ h1.glitch::after {
     box-shadow: 0 0 50px #f00;
 }
 
-/* Ensure works are also clickable if needed */
+
 .work-card {
-    /* ... existing styles ... */
+    pointer-events: auto;
     pointer-events: auto;
 }
 
-/* --- Animations --- */
+
 @keyframes glitch-anim-1 {
     0% {
         clip-path: inset(20% 0 80% 0);
