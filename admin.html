@@ -284,8 +284,9 @@
 
     <div id="app-container" style="height: 100%; width: 100%;"></div>
 
-    <script type="module">
-        import { DB } from './persistence.js';
+    <script src="engine.js"></script>
+    <script>
+        const DB = window.DB;
 
         // --- AUTH ---
         window.attemptLogin = async () => {
