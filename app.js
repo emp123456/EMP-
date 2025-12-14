@@ -93,9 +93,9 @@ export class TunnelScroll {
     triggerRandomEvent() {
         // 30% chance for glitch, 30% for nova
         const rand = Math.random();
-        if (rand < 0.3) {
+        if (rand < 0.2) {
             window.effectGlitch();
-        } else if (rand < 0.6) {
+        } else if (rand < 0.5) {
             window.effectNova();
         }
     }
