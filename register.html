@@ -171,11 +171,9 @@
         </div>
     </div>
 
-    <script type="module">
-        import { Vortex } from './app.js';
-
-
-        new Vortex();
+    <script src="engine.js"></script>
+    <script>
+        new window.Vortex();
 
         window.finishRegistration = (e) => {
             e.preventDefault();
