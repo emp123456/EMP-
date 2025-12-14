@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMP // ARQUITETURA DIGITAL</title>
-    <!-- SECURITY PROTOCOL -->
+
     <script src="security.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,10 +21,10 @@
     <div class="noise-overlay"></div>
     <div class="vignette"></div>
 
-    <!-- The 3D Tunnel Wrapper -->
+
     <div id="tunnel-container">
 
-        <!-- INTRO -->
+
         <section class="tunnel-section" style="--z: 0px;">
             <div class="glitch-wrapper">
                 <h1 class="glitch" data-text="EMP // SIGNAL">EMP // SIGNAL</h1>
@@ -33,7 +33,7 @@
                     INIMAGINÁVEL</span>.</p>
         </section>
 
-        <!-- MANIFESTO -->
+
         <section class="tunnel-section" style="--z: -1500px;">
             <div class="manifesto-block">
                 <h2>O DIAGNÓSTICO:</h2>
@@ -42,7 +42,7 @@
             </div>
         </section>
 
-        <!-- THE PORTAL -->
+
         <section class="tunnel-section" style="--z: -3000px;">
             <div class="portal-ring">
                 <div class="ring-inner"></div>
@@ -50,7 +50,7 @@
             <h2 class="portal-text">A INTERVENÇÃO</h2>
         </section>
 
-        <!-- WORKS 3D -->
+
         <section class="tunnel-section works-group" style="--z: -4500px;">
             <div class="work-card w1">
                 <h3>IMERSÃO</h3>
@@ -66,7 +66,7 @@
             </div>
         </section>
 
-        <!-- DEEP CONTENT 1 -->
+
         <section class="tunnel-section" style="--z: -6000px;">
             <h2 class="huge-text-glitch">TRANSCENDA</h2>
         </section>
@@ -88,7 +88,7 @@
             <h2 class="portal-text">SINGULARIDADE</h2>
         </section>
 
-        <!-- DEEP CONTENT 2 -->
+
         <section class="tunnel-section" style="--z: -11000px;">
             <div class="manifesto-block">
                 <h2>PROTOCOLO FINAL</h2>
@@ -96,18 +96,18 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
+
         <section class="tunnel-section" style="--z: -13000px;">
             <div class="final-cta">
                 <h2 class="glitch" data-text="INICIAR UPLOAD">INICIAR UPLOAD</h2>
                 <p style="margin: 1rem 0; font-family: var(--font-mono); color: #0ff;">ESTÁ PRONTO PARA A VERDADE?</p>
-                <button class="danger-btn" id="collapseBtn">SOLICITAR COLAPSO TOTAL</button>
+                <button class="danger-btn" id="collapseBtn">SOLICITAR ACESSO AGORA</button>
             </div>
         </section>
 
     </div>
 
-    <!-- Scroll Progress Indicator -->
+
     <div class="hud-overlay">
         <div class="scan-line"></div>
         <div class="coords">PROFUNDIDADE: <span id="z-val">0000</span> / 13000</div>
@@ -115,7 +115,7 @@
 
     <script type="module" src="app.js"></script>
 
-    <!-- CHAT INJECTION -->
+
     <div id="chat-container"></div>
     <script>
         fetch('chat.html')
@@ -124,7 +124,7 @@
                 const container = document.getElementById('chat-container');
                 container.innerHTML = html;
 
-                // Manually execute scripts in injected HTML
+
                 const scripts = container.querySelectorAll('script');
                 scripts.forEach(script => {
                     const newScript = document.createElement('script');
