@@ -33,7 +33,7 @@
             flex-direction: column;
         }
 
-        /* LOGIN SCREEN */
+
         #login-screen {
             position: fixed;
             top: 0;
@@ -77,7 +77,7 @@
             background: var(--accent);
         }
 
-        /* DASHBOARD */
+
         header {
             border-bottom: 1px solid #333;
             padding: 1rem;
@@ -126,7 +126,7 @@
             overflow-y: auto;
         }
 
-        /* DATA TABLES */
+
         .data-card {
             border: 1px solid #333;
             padding: 1rem;
@@ -152,7 +152,7 @@
             color: #555;
         }
 
-        /* CHAT INTERFACE */
+
         .chat-layout {
             display: flex;
             height: 100%;
@@ -232,7 +232,7 @@
 
 <body>
 
-    <!-- AUTH GUARD -->
+
     <div id="login-screen">
         <div class="login-box">
             <h2>ACESSO RESTRITO</h2>
@@ -241,7 +241,7 @@
         </div>
     </div>
 
-    <!-- MAIN APP - TEMPLATE PROTECTED -->
+
     <template id="app-template">
         <div id="app" style="height: 100%; flex-direction: column; display: flex;">
             <header>
@@ -288,7 +288,6 @@
         import { DB } from './persistence.js';
 
         // --- AUTH ---
-        // --- AUTH ---
         window.attemptLogin = async () => {
             const pass = document.getElementById('adminPass').value;
             if (await DB.loginAdmin(pass)) {
@@ -305,40 +304,39 @@
 
         function initApp() {
             document.getElementById('login-screen').style.display = 'none';
-            // Instantiate App from Template
+
             const tmpl = document.getElementById('app-template');
             const container = document.getElementById('app-container');
-            container.innerHTML = ''; // Clear just in case
+            container.innerHTML = '';
             container.appendChild(tmpl.content.cloneNode(true));
 
-            // Allow layout to settle then load data
+
             setTimeout(() => {
                 loadData();
                 startAutoRefresh();
             }, 50);
         }
 
-        // Auto-login check
+
         if (DB.isAdmin()) {
             initApp();
         }
 
-        // --- TABS ---
+
         window.showTab = (tabName) => {
             ['briefings', 'meetings', 'chat'].forEach(t => {
                 document.getElementById('tab-' + t).style.display = 'none';
             });
             document.getElementById('tab-' + tabName).style.display = (tabName === 'chat') ? 'block' : 'block';
 
-            // Highlight nav
+
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            // (Simple hack) Assuming order matches
-            // In a real app we'd map via ID or data-attr
+
         };
 
-        // --- DATA LOADING ---
+
         function loadData() {
-            // Briefings
+
             const briefings = DB.getBriefings();
             const bList = document.getElementById('briefing-list');
             bList.innerHTML = briefings.map(b => `
@@ -353,7 +351,7 @@
                 </div>
             `).join('') || '<p>Nenhum projeto encontrado.</p>';
 
-            // Meetings
+
             const meetings = DB.getMeetings();
             const mList = document.getElementById('meeting-list');
             mList.innerHTML = meetings.map(m => `
@@ -366,18 +364,18 @@
                 </div>
             `).join('') || '<p>Nenhum agendamento.</p>';
 
-            // Chat Users
+
             loadChatUsers();
         }
 
-        // --- CHAT SYSTEM ---
+
         let selectedUserId = null;
 
         function loadChatUsers() {
             const users = DB.getUsers();
             const uList = document.getElementById('chat-users');
 
-            // Keep existing selection if possible, otherwise select first
+            if (!selectedUserId && users.length > 0) selectedUserId = users[0].id;
             if (!selectedUserId && users.length > 0) selectedUserId = users[0].id;
 
             uList.innerHTML = users.map(u => `
@@ -392,9 +390,9 @@
 
         window.selectChatUser = (uid) => {
             selectedUserId = uid;
-            loadChatUsers(); // Re-render to update active class
+            loadChatUsers();
             loadMessages(uid);
-            window.loadChatUsers(); // Re-render to update active class
+
             window.loadMessages(uid);
         };
 
@@ -422,18 +420,18 @@
             loadMessages(selectedUserId);
         };
 
-        // --- POLLING & SYNC ---
+
         function startAutoRefresh() {
-            // Initial Load
+
             loadData();
 
-            // Listen for cross-tab updates
+
             DB.onDataChange(() => {
                 loadData();
                 if (selectedUserId) loadMessages(selectedUserId);
             });
 
-            // Keep polling just in case, but less frequent
+
             setInterval(() => {
                 loadData();
             }, 5000);
