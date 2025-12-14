@@ -138,8 +138,9 @@
     }
 </style>
 
-<script type="module">
-    import { DB } from './persistence.js';
+<script>
+    // DB assumed global from engine.js
+    const DB = window.DB;
 
     let currentUser = DB.getCurrentUser();
     let pollInterval = null;
@@ -229,11 +230,12 @@
         const container = document.getElementById('user-msgs');
 
         container.innerHTML = msgs.map(m => `
-            <div class="msg ${m.from === currentUser.id ? 'me' : 'support'}">
-                <div style="font-size: 0.6em; opacity: 0.5; margin-bottom: 2px;">${m.from === currentUser.id ? 'VOCÊ' : 'SUPORTE'}</div>
-                ${m.text}
-            </div>
-        `).join('');
+<div class="msg ${m.from === currentUser.id ? 'me' : 'support'}">
+    <div style="font-size: 0.6em; opacity: 0.5; margin-bottom: 2px;">${m.from === currentUser.id ? 'VOCÊ' : 'SUPORTE'}
+    </div>
+    ${m.text}
+</div>
+`).join('');
 
         container.scrollTop = container.scrollHeight;
     }
