@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMP // SINCRONIA</title>
-    <script src="security.js"></script>
+    <script src="engine.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -134,11 +134,10 @@
         </form>
     </div>
 
-    <script type="module">
-        import { Vortex } from './app.js';
-        import { DB } from './persistence.js';
-
-        new Vortex();
+    <script>
+        // Implements global Engine classes
+        new window.Vortex();
+        const DB = window.DB;
 
         window.selectTime = (el) => {
             document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
