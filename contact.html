@@ -124,7 +124,7 @@
     <div class="or-divider">OU</div>
 
     <div class="split-container">
-        <!-- Dashboard Option -->
+
         <div class="choice-panel" onclick="choosePath('dashboard.html')">
             <div class="choice-content">
                 <h2>PROTOCOLO: <span class="text-highlight">ARQUITETO</span></h2>
@@ -133,7 +133,7 @@
             </div>
         </div>
 
-        <!-- Meeting Option -->
+
         <div class="choice-panel" onclick="choosePath('meeting.html')">
             <div class="choice-content">
                 <h2>PROTOCOLO: <span class="text-highlight">SINCRONIA</span></h2>
@@ -159,7 +159,7 @@
             }
         };
         window.addEventListener('click', startAudio);
-        // Also try start on hover for faster feedback if browser allows
+
         document.body.addEventListener('mousemove', startAudio, { once: true });
 
         window.choosePath = (url) => {
